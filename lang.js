@@ -434,5 +434,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+window.addEventListener("DOMContentLoaded", () => {
+    if (!document.getElementById("bg-music")) {
+        const audio = document.createElement("audio");
+        audio.id = "bg-music";
+        audio.src = "music/music.mp3";
+        audio.loop = true;
+        audio.style.display = "none";
+        document.body.appendChild(audio);
+
+        // Hàm play nhạc
+        const startMusic = () => {
+            audio.play().catch(err => console.log("Autoplay blocked:", err));
+            document.removeEventListener("click", startMusic);
+            document.removeEventListener("keydown", startMusic);
+        };
+
+        // Bắt sự kiện click hoặc nhấn phím
+        document.addEventListener("click", startMusic);
+        document.addEventListener("keydown", startMusic);
+    }
+});
+
 
 
